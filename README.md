@@ -1,76 +1,91 @@
 # Reading go.
 
-## package
+# Package
   - every program starts with package
   - import can be done with groups
-    - package main() {
+    - ``` go
+      package main() {
         package
-    }
+      }
   - import can also be single
 
-## function
-  - func name(args) args {
+# Function
+  - ``` go
+    func name(args) args {
+      statement
+    }
+  - args can be written like 
+    - `(x int, y int)`
+    - `(x string, y int)`
+    - `(x,y int)`
+  - return formats 
+    - `(int, int)` 
+    - `(x int, y int)` 
+    - `(x,y int)`
+  - function can have `named return`
+    - here `p, q` automatically returns
+      ``` go
+      func name(x, y int) (p, q int) {
+        p = x
+        q = y
+      } 
 
-  }
-  - args can written like (x int, y int), (x string, y int) or (x,y int)
-  - return (int, int) or (x int, y int) or (x,y int)
-  - function can have named return
-
-## variable
+# Variable
   - var statement declares a variable
-  - var `name` type
-  - var x int
-  - var can be initialized ex var x,y string  = "a", "b"
-  - var x = "lasdl", it autometically detects the type to string
+  - `var name type`
+  - `var x int`
+  - var can be initialized
+    -  `var x,y string  = "a", "b"`
+  - `var x = "lasdl"`, it autometically detects the type to `string`
   - `:=` can be used as short variable assignment `x := 3` this is a delecration
-  - default all variable initialized with zero
+  - default all variable initialized with zero, `nil`
 
 # Basic types
-  a. bool
-  b. string
-  c. int  int8  int16  int32  int64
-  d. uint uint8 uint16 uint32 uint64 uintptr
-  e. byte // alias for uint8
-  f. rune // alias for int32 // represents a Unicode code point
-  g. float32 float64
-  h. complex64 complex128
-
-  * type conversion
-    - type_name(variable)
+  - bool
+  - string
+  - int  int8  int16  int32  int64
+  - uint uint8 uint16 uint32 uint64 uintptr
+  - byte // alias for uint8
+  - rune // alias for int32 // represents a Unicode code point
+  - float32 float64
+  - complex64 complex128
+  - ### Type conversion
+    - `type_name(variable)`
     - while declaring a variable without type take the parent type
 
-## Constants
-  1. Constants are declared in package should start with capital letter
-  2. otherwise it wont imported
-  3. declaration `const Pi = 3.1416`
-  4. `const` could not use `:=` short assignment operator
+# Constants
+  - Constants are declared in package should start with capital letter
+  - otherwise it won't be imported
+  - declaration `const Pi = 3.1416`
+  - `const` could not use `:=` short assignment operator
 
-# LOOP
-  - ## for loop
-    - for i := 1; i< 10; i++ {}
-    - for ; i<10; {} uninitialized loop loop
-    - for i<1 {} while loop
-    - for {} infinite loop
+# Loop
+  - ## For
+    - `for i := 1; i< 10; i++ {}`
+    - `for ; i<10; {}` uninitialized loop
+    - `for i<1 {}` while loop
+    - `for {}` infinite loop
   - ## if statement
-    - if condition { then }
-    - if v:=f(); v<0 {} assignment and condition check and v is block local, means invalid outside if
-    - if condition {} else {}
+    - `if condition { statement }`
+    - `if v:=f(); v<0 {}` assignment and condition check and `v` is block local, means invalid outside if of if block
+    - `if condition {} else if condition {} else {}`
   - ## switch
-    - switch init; value { case: '' default}
-    - switch value { case: '' default}
-    - there is no break statement in switch
-    - another format with no condition
-      - switch {
+    - `switch initialize; value { case: statement default: statement}`
+    - `switch value { case: statement default: statement}`
+    - There is no `break` statement in `go` switch like `c++`
+    - another format with no variable just condition check condition work like `if else` 
+      - ``` go 
+        switch {
         case value>1:
           statement
         case value < 1:
           statement
         default:
           statement
-      }
+        }
   - ## defer
-    - run an statement after parent function or block returns
-    - defer pushed in to stack one by one if a block contains multiple defer and they one by one from stack in reverse of their original order
+    - run an statement after `parent function` or `block` `returns`
+    - `defer` pushed in to `stack` one by one if a block contains multiple defer and they one by one from stack in reverse of their original order
   - ## Pointer
     - `var *p int`
     - p = &i
@@ -79,12 +94,13 @@
     - p denotes only address
   - ## struct
     - structure in c
-    - type Name struct  {
-      x int
-      y int
-    }
-    - declated by Name(2,3) then x = 2, y = 3
-    - struct field can be accessible through `.` notation Name.x, or Name.x = 3
+      ``` go 
+      type Name struct  {
+        x int
+        y int
+      }
+    - declared by `Name(2,3)` then `x = 2, y = 3`
+    - `struct` field can be accessible through `.` notation Name.x, or Name.x = 3
     - can have pointer of struct, v = Name(2,3), p := &v
     - pointer can access member by . dot notaion p.x can be done
   - ## array
@@ -157,7 +173,7 @@
     - io.reader took a buffer byte and send a tuple (len, error) by telling the data length in byte buffer
     - reader can wrap another reader to change the buffer in the midway
 
-  # Concurrency --
+  - # Concurrency
     - ## goroutine
       - goroutine is a simple thread  used by go runtime
       - go function() run a function in another go runtime like thread
