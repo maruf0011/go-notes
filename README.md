@@ -104,6 +104,36 @@
     - can have pointer of struct, v = Name(2,3), p := &v
     - pointer can access member by . dot notaion p.x can be done
   - ## array
+    - ```
+       Go's arrays are values. An array variable denotes the entire array; it is not a pointer to the first array element (as would be the case in C). This means that when you assign or pass around an array value you will make a copy of its contents. (To avoid the copy you could pass a pointer to the array, but then that's a pointer to an array, not an array.) One way to think about arrays is as a sort of struct but with indexed rather than named fields: a fixed-size composite value.
+    - ``` go
+      /* A possible "gotcha"
+       As mentioned earlier, re-slicing a slice doesn't make a copy of the underlying array. The full array will be kept in memory until it is no longer referenced. Occasionally this can cause the program to hold all the data in memory when only a small piece of it is needed.
+
+      For example, this FindDigits function loads a file into memory and searches it for the first group of consecutive numeric digits, returning them as a new slice.
+      */
+      var digitRegexp = regexp.MustCompile("[0-9]+")
+
+      func FindDigits(filename string) []byte {
+          b, _ := ioutil.ReadFile(filename)
+          return digitRegexp.Find(b)
+      }
+      /*
+      This code behaves as advertised, but the returned []byte points into an array containing the entire file. Since the slice references the original array, as long as the slice is kept around the garbage collector can't release the array; the few useful bytes of the file keep the entire contents in memory.
+
+      To fix this problem one can copy the interesting data to a new slice before returning it:
+      */
+      func CopyDigits(filename string) []byte {
+          b, _ := ioutil.ReadFile(filename)
+          b = digitRegexp.Find(b)
+          c := make([]byte, len(b))
+          copy(c, b)
+          return c
+      }
+      /*
+      A more concise version of this function could be constructed by using append. This is left as an exercise for the reader.
+      */
+  
     - array declaration `var name [size] type`
     - also can be done by `name := [size] type {values, values, ...}`
     - array slicing can be done `a[start: end]`
