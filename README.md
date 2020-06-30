@@ -87,7 +87,7 @@
     - run an statement after `parent function` or `block` `returns`
     - `defer` pushed in to `stack` one by one if a block contains multiple defer and they one by one from stack in reverse of their original order
   - ## Pointer
-    - `var *p int`
+    - `var p *int`
     - p = &i
     - `*p = 12`
     - `*p` denotes value at address p
